@@ -1,0 +1,304 @@
+<!DOCTYPE html> <html lang="th"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/> <meta name="apple-mobile-web-app-capable" content="yes"/> <meta name="mobile-web-app-capable" conten
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <title>2AM Euro Service Customer</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{ -webkit-text-size-adjust:100%; }
+    body{
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:#0a0a0a; min-height:100vh; padding:20px; position:relative; color:#fff;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:''; position:fixed; inset:0; z-index:0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(120,119,198,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,107,107,.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 90%, rgba(78,205,196,.15) 0%, transparent 50%);
+    }
+
+    .header-wrap{ width:100%; max-width:800px; margin:0 auto 18px; position:relative; z-index:1;}
+    .header{
+      width:100%; height:220px; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.1); background:#000; position:relative;
+      display:flex; align-items:stretch; justify-content:center;
+      box-shadow:0 10px 40px rgba(0,0,0,.6), 0 0 0 1px rgba(120,119,198,.2);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .header:hover{ transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,.8), 0 0 30px rgba(120,119,198,.3); }
+    .header::before{
+      content:''; position:absolute; inset:0; z-index:1;
+      background:linear-gradient(135deg, rgba(120,119,198,.15) 0%, transparent 50%, rgba(255,107,107,.15) 100%);
+      opacity:0; transition:opacity .5s ease;
+    }
+    .header:hover::before{ opacity:1; }
+    .header::after{
+      content:''; position:absolute; inset:-2px; z-index:0;
+      background:linear-gradient(45deg, #7877c6, #ff6b6b, #4ecdc4, #7877c6);
+      background-size:300% 300%; border-radius:16px; opacity:0;
+      animation:gradientShift 4s ease infinite; transition:opacity .3s ease;
+    }
+    .header:hover::after{ opacity:.3; }
+    @keyframes gradientShift{ 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .header img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; filter:brightness(.92); position:relative; z-index:2; transition:filter .3s ease, transform .3s ease; }
+    .header:hover img{ filter:brightness(1) contrast(1.1); transform:scale(1.02); }
+
+    .container
+    { max-width:800px; margin:0 auto; position:relative; z-index:2;}
+    .form-card{
+      background:rgba(26,26,26,.95); backdrop-filter:blur(10px);
+      border-radius:16px; padding:32px; border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+    }
+    .form-title{ font-size:26px; font-weight:600; margin-bottom:8px;}
+    .form-subtitle{ color:#aaa; margin-bottom:24px; font-size:14px;}
+    .required-note{ color:#ff6b6b; margin-bottom:20px; font-size:14px;}
+
+    .form-group{ margin-bottom:20px;}
+    label{ display:block; font-weight:500; margin-bottom:8px; font-size:15px;}
+    .required{ color:#ff6b6b; margin-left:4px;}
+
+    input[type="text"], input[type="tel"], textarea{
+      width:100%; padding:12px 14px; border:2px solid rgba(255,255,255,.1);
+      border-radius:10px; background:rgba(255,255,255,.05); color:#fff; font-size:15px; transition:.3s;
+      font-family:inherit; -webkit-appearance:none; appearance:none;
+    }
+    input:focus, textarea:focus{
+      outline:none; border-color:#7877c6; box-shadow:0 0 0 3px rgba(120,119,198,.2);
+      background:rgba(255,255,255,.08);
+    }
+
+    .checkbox-group{ margin-top:12px;}
+    .checkbox-option{
+      display:flex; align-items:center; gap:12px; padding:14px;
+      border:2px solid rgba(255,255,255,.1); border-radius:10px;
+      background:rgba(255,255,255,.03); transition:.3s; margin-bottom:10px; cursor:pointer; color:#fff;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .checkbox-option:hover{ border-color:#7877c6; background:rgba(120,119,198,.1); transform:translateX(5px);}    
+    .checkbox-option input[type="checkbox"]{ width:20px; height:20px; accent-color:#7877c6; cursor:pointer; flex-shrink:0;}
+
+    .button-group{ display:flex; gap:12px; margin-top:28px;}
+    button{
+      flex:1; padding:14px 28px; border:none; border-radius:10px; font-size:16px; font-weight:600; cursor:pointer;
+      background:linear-gradient(135deg, #7877c6 0%, #ff6b6b 100%); color:#fff; transition:.3s;
+      box-shadow:0 5px 20px rgba(120,119,198,.4); -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+    }
+    button:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(120,119,198,.6);}    
+
+    .progress-bar{ background:rgba(255,255,255,.1); height:6px; border-radius:10px; margin:16px 0 20px; overflow:hidden;}
+    .progress-fill{ background:linear-gradient(135deg,#7877c6 0%, #ff6b6b 100%); height:100%; transition:width .3s; border-radius:10px; box-shadow:0 0 10px rgba(120,119,198,.5);}    
+
+    .modal-overlay{
+      position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:9999;
+      backdrop-filter:blur(5px);
+    }
+    .modal-overlay.active{ display:flex; animation:fadeInOverlay .3s ease; }
+    @keyframes fadeInOverlay{ from{opacity:0} to{opacity:1} }
+
+    .success-modal{
+      background:linear-gradient(135deg, rgba(26,26,26,.98) 0%, rgba(30,30,40,.98) 100%);
+      border-radius:20px; padding:50px 40px; text-align:center;
+      border:2px solid rgba(120,119,198,.3); box-shadow:0 30px 80px rgba(0,0,0,.9);
+      max-width:450px; animation:slideUp .4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position:relative; overflow:hidden;
+    }
+    .success-modal::before{
+      content:''; position:absolute; inset:0; background:radial-gradient(circle at 100% 0%, rgba(120,119,198,.1) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    @keyframes slideUp{ from{opacity:0; transform:translateY(40px)} to{opacity:1; transform:translateY(0)} }
+
+    .success-icon{
+      width:90px; height:90px; margin:0 auto 25px;
+      background:linear-gradient(135deg, #7877c6 0%, #ff6b6b 100%);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:45px; animation:scaleIn .6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:0 0 40px rgba(120,119,198,.6), inset 0 0 20px rgba(255,255,255,.2);
+      position:relative;
+    }
+    @keyframes scaleIn{ from{transform:scale(0)} to{transform:scale(1)} }
+
+    .success-title{
+      font-size:32px; font-weight:700; margin-bottom:15px;
+      background:linear-gradient(135deg, #7877c6 0%, #ff6b6b 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; letter-spacing:.5px;
+    }
+
+    .success-subtitle{ color:#bbb; font-size:16px; line-height:1.6; margin-bottom:10px; }
+    .success-brand{ color:#7877c6; font-weight:600; font-size:17px; margin-top:15px; text-shadow:0 0 15px rgba(120,119,198,.4); letter-spacing:.3px; }
+    .modal-button{
+      margin-top:35px; padding:15px 40px; background:linear-gradient(135deg, #7877c6 0%, #ff6b6b 100%);
+      color:#fff; border:none; border-radius:12px; font-size:17px; font-weight:600;
+      cursor:pointer; transition:.3s; box-shadow:0 8px 25px rgba(120,119,198,.5);
+      position:relative;
+    }
+    .modal-button:hover{ transform:translateY(-3px); box-shadow:0 12px 35px rgba(120,119,198,.7); }
+
+    .consent-text{ color:#ccc; font-size:14px; line-height:1.6; margin-bottom:15px;}
+
+    @media (max-width: 480px){
+      body{ padding:10px; } .header-wrap{ margin-bottom:10px; } .header{ height:150px; border-radius:10px; }
+      .form-card{ padding:16px; border-radius:10px; } .form-title{ font-size:20px; }
+      .form-subtitle{ font-size:12px; margin-bottom:14px; } .required-note{ font-size:12px; margin-bottom:14px; }
+      .form-group{ margin-bottom:14px; } label{ font-size:14px; margin-bottom:6px; }
+      input, textarea{ padding:10px 11px; font-size:16px; }
+      button{ padding:11px 18px; font-size:14px; }
+      .progress-bar{ height:5px; margin:12px 0 16px; }
+      .success-modal{ padding:35px 25px; max-width:95%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-wrap">
+    <div class="header">
+      <img src="https://cdn.jsdelivr.net/gh/P2scalWang/Image22amz/BannerFinal.png" alt="2:am — Euro Service and Detailing (Banner)">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="form-card">
+      <h1 class="form-title">ข้อมูลติดต่อผู้ใช้บริการ</h1>
+      <p class="form-subtitle">กรุณากรอกข้อมูลติดต่อของผู้ใช้บริการ</p>
+
+      <div class="required-note">* ระบุว่าเป็นคำถามที่จำเป็น</div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressBar" style="width:100%;"></div>
+      </div>
+
+      <form id="serviceForm">
+        <div class="form-group">
+          <label>ชื่อ-สกุล <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="คำตอบของคุณ" required>
+        </div>
+
+        <div class="form-group">
+          <label>ชื่อเล่น</label>
+          <input type="text" id="nickname" placeholder="คำตอบของคุณ">
+        </div>
+
+        <div class="form-group">
+          <label>เบอร์ติดต่อ <span class="required">*</span></label>
+          <input type="tel" id="phone" placeholder="0956432678" required>
+        </div>
+          
+        <div class="form-group">
+          <label>ทะเบียนรถ</label>
+          <input type="text" id="license" placeholder="เช่น 1กข 1234 กรุงเทพฯ">
+        </div>
+
+        <div class="form-group">
+          <label>ID LINE</label>
+          <input type="text" id="line" placeholder="คำตอบของคุณ">
+        </div>
+
+        <div class="form-group">
+          <label>อีเมล</label>
+          <input type="text" id="email" placeholder="คำตอบของคุณ">
+        </div>
+
+        <div class="form-group">
+          <label class="consent-text">
+            ฉันยินดีรับข่าวสารและข้อเสนอสิทธิประโยชน์ต่าง ๆ จาก บริษัท ทเว้นตี้วัน แอนด์ เซอร์วิส กรุ๊ป จำกัด รวมถึงบริการอื่น ๆ ที่เกี่ยวข้องกับ PDPA
+            (เราอาจติดต่อคุณในบางโอกาสและคุณสามารถยกเลิกได้ทุกเมื่อ)<span class="required">*</span>
+          </label>
+          <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input type="checkbox" name="consent" value="agree" required>
+              <span>ยอมรับ</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="consent" value="decline">
+              <span>ไม่ยินยอม</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn-submit">ส่ง</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="successModal">
+    <div class="success-modal">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">ส่งแบบฟอร์มเรียบร้อยแล้ว!</h2>
+      <p class="success-subtitle">ขอบคุณที่ให้ความไว้วางใจ</p>
+      <p class="success-brand">2AM Euro Service</p>
+      <button class="modal-button" onclick="closeSuccessModal()">ตกลง</button>
+    </div>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = 'https://n8n.srv1097662.hstgr.cloud/webhook/2amsrinakarinclients';
+
+    async function sendToWebhook(payload){
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      try { return await res.json(); } catch { return {}; }
+    }
+
+    document.getElementById('serviceForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const consent = document.querySelector('input[name="consent"]:checked');
+      if(!name || !phone || !consent){ alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน'); return; }
+
+      const submitBtn = document.querySelector('.btn-submit');
+      const original = submitBtn.textContent; submitBtn.textContent = 'กำลังส่งข้อมูล...'; submitBtn.disabled = true;
+
+      const payload = {
+        name: name,
+        nickname: document.getElementById('nickname').value.trim(),
+        phone: phone,
+        licensePlate: document.getElementById('license').value.trim(),
+        lineId: document.getElementById('line').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        consentPDPA: consent ? consent.value : '',
+        submittedAt: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        screenResolution: `${window.screen.width}x${window.screen.height}`
+      };
+
+      try{
+        await sendToWebhook(payload);
+        document.getElementById('successModal').classList.add('active');
+        setTimeout(()=>{ document.getElementById('serviceForm').reset(); }, 1500);
+      }catch(err){
+        console.error(err);
+        alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+      }finally{
+        submitBtn.textContent = original; submitBtn.disabled = false;
+      }
+    });
+
+    // Checkbox แบบเลือกได้เพียงข้อเดียว (exclusive)
+    const checkboxes = document.querySelectorAll('input[name="consent"]');
+    checkboxes.forEach(cb=>{
+      cb.addEventListener('change', function(){
+        if(this.checked){ checkboxes.forEach(x=>{ if(x!==this) x.checked=false; }); }
+      });
+    });
+
+    function closeSuccessModal(){ document.getElementById('successModal').classList.remove('active'); }
+  </script>
+</body>
+</html>
